@@ -1,0 +1,100 @@
+import React, { useState, useEffect } from 'react';
+import { ActiveView, Lesson, UserProfile } from './types';
+import { INITIAL_USER_PROFILE } from './data/mockData';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { HomeView } from './views/HomeView';
+import { AlphabetView } from './views/AlphabetView';
+import { CoursesView } from './views/CoursesView';
+import { LessonView } from './views/LessonView';
+import { CasesView } from './views/CasesView';
+import { DialoguesView } from './views/DialoguesView';
+import { DashboardView } from './views/DashboardView';
+
+export const App: React.FC = () => {
+  const [activeView, setActiveView] = useState<ActiveView>('home');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [userProfile, setUserProfile] = useState<UserProfile>(() => {
+    const saved = localStorage.getItem('russian_lms_user_profile');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return INITIAL_USER_PROFILE;
+  });
+
+  const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('russian_lms_user_profile', JSON.stringify(userProfile));
+  }, [userProfile]);
+
+  const handleStartLesson = (lesson: Lesson) => {
+    setActiveLesson(lesson);
+    setActiveView('lesson');
+  };
+
+  const handleCompleteLesson = (xpEarned: number) => {
+    setUserProfile(prev => ({
+      ...prev,
+      xp: prev.xp + xpEarned,
+      completedLessonIds: [...new Set([...prev.completedLessonIds, activeLesson?.id || ''])]
+    }));
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+      <div>
+        <Navbar
+          activeView={activeView}
+          setActiveView={setActiveView}
+          userProfile={userProfile}
+          setUserProfile={setUserProfile}
+          theme={theme}
+          setTheme={setTheme}
+        />
+
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {activeView === 'home' && (
+            <HomeView setActiveView={setActiveView} />
+          )}
+
+          {activeView === 'alphabet' && (
+            <AlphabetView />
+          )}
+
+          {activeView === 'courses' && (
+            <CoursesView onStartLesson={handleStartLesson} />
+          )}
+
+          {activeView === 'lesson' && activeLesson && (
+            <LessonView
+              lesson={activeLesson}
+              onCompleteLesson={handleCompleteLesson}
+              onExitLesson={() => setActiveView('courses')}
+            />
+          )}
+
+          {activeView === 'cases' && (
+            <CasesView />
+          )}
+
+          {activeView === 'dialogues' && (
+            <DialoguesView />
+          )}
+
+          {activeView === 'dashboard' && (
+            <DashboardView userProfile={userProfile} />
+          )}
+        </main>
+      </div>
+
+      <Footer setActiveView={setActiveView} />
+    </div>
+  );
+};
+
+export default App;
