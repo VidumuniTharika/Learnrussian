@@ -1,4 +1,4 @@
-import { CyrillicLetter, RussianCaseRule, Course, DialogueScenario, Badge } from '../types';
+import { CyrillicLetter, RussianCaseRule, Course, DialogueScenario } from '../types';
 
 export const CYRILLIC_ALPHABET: CyrillicLetter[] = [
   { id: '1', symbol: 'А', lowercase: 'а', name: 'A', englishApprox: 'a in father', ipa: '[a]', category: 'vowel', sampleWord: 'Арбу́з', sampleTranslation: 'Watermelon', sampleTranslationEn: 'Watermelon', sampleStressIndex: 4 },
@@ -207,6 +207,99 @@ export const COURSES_DATA: Course[] = [
         ],
         isUnlocked: true,
         isCompleted: false
+      },
+      {
+        id: 'a1-l3',
+        courseId: 'course-a1',
+        level: 'A1',
+        title: 'Numbers 1-10 & Age',
+        titleRu: 'Числа 1-10 и возраст',
+        description: 'Learn Russian numbers, asking prices, and stating your age.',
+        durationMinutes: 14,
+        xpReward: 60,
+        grammarFocus: 'Numbers 1-10 & Age formula: Dative + лет/года',
+        vocabulary: [
+          { word: 'Один', translation: 'One (1)', pronunciation: 'A-deen' },
+          { word: 'Два', translation: 'Two (2)', pronunciation: 'Dva' },
+          { word: 'Три', translation: 'Three (3)', pronunciation: 'Tree' },
+          { word: 'Мне 20 лет', translation: 'I am 20 years old', pronunciation: 'Mnye 20 lyet' },
+          { word: 'Сколько стоит?', translation: 'How much does it cost?', pronunciation: 'Skol-ko sto-eet?' }
+        ],
+        exercises: [
+          {
+            id: 'e5',
+            type: 'multiple_choice',
+            question: 'How do you ask "How much does it cost?" in Russian?',
+            options: [
+              { id: '1', text: 'Сколько стоит? (Skolko stoit?)', isCorrect: true },
+              { id: '2', text: 'Где метро? (Gde metro?)', isCorrect: false },
+              { id: '3', text: 'Как вас зовут? (Kak vas zovut?)', isCorrect: false }
+            ],
+            explanation: 'Сколько стоит? is the universal Russian question for prices.'
+          }
+        ],
+        isUnlocked: true,
+        isCompleted: false
+      },
+      {
+        id: 'a1-l4',
+        courseId: 'course-a1',
+        level: 'A1',
+        title: 'Everyday Verbs & Present Tense',
+        titleRu: 'Глаголы в настоящем времени',
+        description: 'Conjugate essential Russian verbs like Read, Write, and Speak.',
+        durationMinutes: 16,
+        xpReward: 70,
+        grammarFocus: '1st Conjugation verbs (-ать / -ять)',
+        vocabulary: [
+          { word: 'Читать', translation: 'To read', pronunciation: 'Chee-tat' },
+          { word: 'Я читаю', translation: 'I am reading', pronunciation: 'Ya chee-ta-yoo' },
+          { word: 'Говорить', translation: 'To speak', pronunciation: 'Ga-va-reet' },
+          { word: 'Я говорю по-русски', translation: 'I speak Russian', pronunciation: 'Ya ga-va-ryoo pa-roos-kee' }
+        ],
+        exercises: [
+          {
+            id: 'e6',
+            type: 'drag_order',
+            question: 'Assemble the sentence: "I speak Russian."',
+            wordsToOrder: ['по-русски.', 'Я', 'говорю'],
+            correctSentence: 'Я говорю по-русски.',
+            explanation: 'Word order: Subject (Я) + Verb (говорю) + Adverb (по-русски).'
+          }
+        ],
+        isUnlocked: true,
+        isCompleted: false
+      },
+      {
+        id: 'a1-l5',
+        courseId: 'course-a1',
+        level: 'A1',
+        title: 'At the Cafe & Restaurant',
+        titleRu: 'В кафе и ресторане',
+        description: 'Order Russian dishes like Borsch and Pelmeni with polite restaurant etiquette.',
+        durationMinutes: 15,
+        xpReward: 65,
+        grammarFocus: 'Accusative case for food orders (Я хочу...)',
+        vocabulary: [
+          { word: 'Борщ', translation: 'Borsch (beet soup)', pronunciation: 'Borshch' },
+          { word: 'Пельмени', translation: 'Pelmeni (dumplings)', pronunciation: 'Pyel-mye-nee' },
+          { word: 'Чай', translation: 'Tea', pronunciation: 'Chay' },
+          { word: 'Чек, пожалуйста', translation: 'The bill, please', pronunciation: 'Chek po-zha-loy-sta' }
+        ],
+        exercises: [
+          {
+            id: 'e7',
+            type: 'multiple_choice',
+            question: 'How do you ask for the bill at a restaurant?',
+            options: [
+              { id: '1', text: 'Чек, пожалуйста (Chek, pozhaluysta)', isCorrect: true },
+              { id: '2', text: 'До свидания (Do svidaniya)', isCorrect: false }
+            ],
+            explanation: 'Чек, пожалуйста is how you politely request the check.'
+          }
+        ],
+        isUnlocked: true,
+        isCompleted: false
       }
     ]
   },
@@ -217,7 +310,71 @@ export const COURSES_DATA: Course[] = [
     level: 'A2',
     description: 'Order food, navigate Russian transportation, ask for directions, and express past/future events.',
     iconName: 'Compass',
-    lessons: []
+    lessons: [
+      {
+        id: 'a2-l1',
+        courseId: 'course-a2',
+        level: 'A2',
+        title: 'Verbs of Motion: Идти vs Ехать',
+        titleRu: 'Глаголы движения: Идти и Ехать',
+        description: 'Distinguish between traveling on foot vs traveling by transport.',
+        durationMinutes: 18,
+        xpReward: 80,
+        grammarFocus: 'Motion on foot (Идти) vs Motion by transport (Ехать)',
+        vocabulary: [
+          { word: 'Идти', translation: 'To go on foot', pronunciation: 'Eed-tee' },
+          { word: 'Ехать', translation: 'To go by transport', pronunciation: 'Ye-khat' },
+          { word: 'Я иду в парк', translation: 'I am walking to the park', pronunciation: 'Ya ee-doo v park' },
+          { word: 'Я еду на метро', translation: 'I am riding the metro', pronunciation: 'Ya ye-doo na myet-ro' }
+        ],
+        exercises: [
+          {
+            id: 'e8',
+            type: 'multiple_choice',
+            question: 'Which verb is used when traveling by train or car?',
+            options: [
+              { id: '1', text: 'Идти (Idti)', isCorrect: false },
+              { id: '2', text: 'Ехать (Yekhat)', isCorrect: true }
+            ],
+            explanation: 'Ехать is used for motion using vehicles/transport.'
+          }
+        ],
+        isUnlocked: true,
+        isCompleted: false
+      },
+      {
+        id: 'a2-l2',
+        courseId: 'course-a2',
+        level: 'A2',
+        title: 'Asking Directions in Moscow',
+        titleRu: 'Как пройти в Москве?',
+        description: 'Navigate Red Square, find metro stations, and ask people for directions.',
+        durationMinutes: 15,
+        xpReward: 75,
+        grammarFocus: 'Prepositions: Прямо (Straight), Направо (Right), Налево (Left)',
+        vocabulary: [
+          { word: 'Прямо', translation: 'Straight ahead', pronunciation: 'Pryam-o' },
+          { word: 'Направо', translation: 'To the right', pronunciation: 'Na-pra-vo' },
+          { word: 'Налево', translation: 'To the left', pronunciation: 'Na-lye-vo' },
+          { word: 'Где находиться...?', translation: 'Where is located...?', pronunciation: 'Gdye na-kho-deet-sya...?' }
+        ],
+        exercises: [
+          {
+            id: 'e9',
+            type: 'multiple_choice',
+            question: 'What does "Прямо" mean when giving directions?',
+            options: [
+              { id: '1', text: 'Turn left', isCorrect: false },
+              { id: '2', text: 'Straight ahead', isCorrect: true },
+              { id: '3', text: 'Turn right', isCorrect: false }
+            ],
+            explanation: 'Прямо translates to "straight ahead".'
+          }
+        ],
+        isUnlocked: true,
+        isCompleted: false
+      }
+    ]
   },
   {
     id: 'course-b1',
@@ -300,14 +457,22 @@ export const INITIAL_USER_PROFILE = {
   name: 'Alex Rivera',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80',
   selectedLanguage: 'en' as const,
-  xp: 450,
-  streak: 5,
+  xp: 550,
+  streak: 6,
   lastActiveDate: new Date().toISOString(),
   levelTitle: 'Знаток (Learner)',
-  completedLessonIds: [],
-  bookmarkedWords: ['Здравствуйте', 'Спасибо', 'Балалайка'],
+  completedLessonIds: ['a1-l1'],
+  bookmarkedWords: ['Здравствуйте', 'Спасибо', 'Балалайка', 'До свидания'],
   badges: [
     { id: 'b1', name: 'Cyrillic Explorer', nameRu: 'Исследователь Азбуки', description: 'Explored all 33 Cyrillic letters with audio soundboard.', icon: '🔤', unlockedAt: '2026-09-10' },
     { id: 'b2', name: '5-Day Streak', nameRu: '5 дней подряд', description: 'Practiced Russian 5 days in a row without missing.', icon: '🔥', unlockedAt: '2026-09-11' }
+  ],
+  srsCards: [
+    { id: 'srs-1', word: 'Здравствуйте', translation: 'Hello (Formal)', pronunciation: 'Zdrav-stvooy-tye', exampleRu: 'Здравствуйте, профессор!', exampleEn: 'Hello, professor!', box: 1, lastReviewed: new Date().toISOString(), nextReviewDate: new Date().toISOString() },
+    { id: 'srs-2', word: 'Спасибо', translation: 'Thank you', pronunciation: 'Spa-see-ba', exampleRu: 'Большое спасибо за помощь.', exampleEn: 'Thank you very much for your help.', box: 2, lastReviewed: new Date().toISOString(), nextReviewDate: new Date().toISOString() }
+  ],
+  activityLogs: [
+    { date: '2026-09-10', minutesSpent: 15, lessonsCompleted: 1, xpEarned: 50 },
+    { date: '2026-09-11', minutesSpent: 22, lessonsCompleted: 2, xpEarned: 110 }
   ]
 };

@@ -7,7 +7,10 @@ export type ActiveView =
   | 'lesson' 
   | 'cases' 
   | 'dialogues' 
-  | 'dashboard';
+  | 'dashboard'
+  | 'placement'
+  | 'srs'
+  | 'culture';
 
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 
@@ -116,6 +119,48 @@ export interface Badge {
   unlockedAt?: string;
 }
 
+export interface PlacementQuestion {
+  id: string;
+  question: string;
+  questionRu?: string;
+  audioPrompt?: string;
+  options: { id: string; text: string; isCorrect: boolean }[];
+  explanation: string;
+  targetLevel: CEFRLevel;
+}
+
+export interface SRSCardItem {
+  id: string;
+  word: string;
+  translation: string;
+  pronunciation: string;
+  exampleRu: string;
+  exampleEn: string;
+  box: number; // Leitner box 1-5
+  lastReviewed: string; // ISO date
+  nextReviewDate: string; // ISO date
+}
+
+export interface CultureStory {
+  id: string;
+  title: string;
+  titleRu: string;
+  category: 'Literature' | 'History' | 'Travel' | 'Tradition';
+  readTimeMinutes: number;
+  excerptRu: string;
+  excerptEn: string;
+  fullStoryRu: string;
+  fullStoryEn: string;
+  vocabularyList: { word: string; translation: string }[];
+}
+
+export interface DailyActivityLog {
+  date: string; // YYYY-MM-DD
+  minutesSpent: number;
+  lessonsCompleted: number;
+  xpEarned: number;
+}
+
 export interface UserProfile {
   name: string;
   avatar: string;
@@ -127,4 +172,12 @@ export interface UserProfile {
   completedLessonIds: string[];
   bookmarkedWords: string[];
   badges: Badge[];
+  srsCards: SRSCardItem[];
+  placementResult?: {
+    recommendedLevel: CEFRLevel;
+    score: number;
+    total: number;
+    testedAt: string;
+  };
+  activityLogs: DailyActivityLog[];
 }

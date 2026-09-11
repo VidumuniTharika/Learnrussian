@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActiveView, Lesson, UserProfile } from './types';
+import { ActiveView, Lesson, UserProfile, CEFRLevel, SRSCardItem } from './types';
 import { INITIAL_USER_PROFILE } from './data/mockData';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -10,6 +10,9 @@ import { LessonView } from './views/LessonView';
 import { CasesView } from './views/CasesView';
 import { DialoguesView } from './views/DialoguesView';
 import { DashboardView } from './views/DashboardView';
+import { PlacementTestView } from './views/PlacementTestView';
+import { SRSFlashcardsView } from './views/SRSFlashcardsView';
+import { CultureView } from './views/CultureView';
 
 export const App: React.FC = () => {
   const [activeView, setActiveView] = useState<ActiveView>('home');
@@ -42,6 +45,25 @@ export const App: React.FC = () => {
       ...prev,
       xp: prev.xp + xpEarned,
       completedLessonIds: [...new Set([...prev.completedLessonIds, activeLesson?.id || ''])]
+    }));
+  };
+
+  const handleSavePlacementResult = (level: CEFRLevel, score: number, total: number) => {
+    setUserProfile(prev => ({
+      ...prev,
+      placementResult: {
+        recommendedLevel: level,
+        score,
+        total,
+        testedAt: new Date().toISOString()
+      }
+    }));
+  };
+
+  const handleUpdateSRSCards = (newCards: SRSCardItem[]) => {
+    setUserProfile(prev => ({
+      ...prev,
+      srsCards: newCards
     }));
   };
 
@@ -84,6 +106,24 @@ export const App: React.FC = () => {
 
           {activeView === 'dialogues' && (
             <DialoguesView />
+          )}
+
+          {activeView === 'placement' && (
+            <PlacementTestView
+              onSaveResult={handleSavePlacementResult}
+              onNavigateCourses={() => setActiveView('courses')}
+            />
+          )}
+
+          {activeView === 'srs' && (
+            <SRSFlashcardsView
+              cards={userProfile.srsCards || []}
+              onUpdateCards={handleUpdateSRSCards}
+            />
+          )}
+
+          {activeView === 'culture' && (
+            <CultureView />
           )}
 
           {activeView === 'dashboard' && (

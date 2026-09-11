@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Lesson } from '../types';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
 import confetti from 'canvas-confetti';
+import { VoiceRecorder } from '../components/VoiceRecorder';
 import { 
   Volume2, 
   CheckCircle, 
@@ -144,41 +145,46 @@ export const LessonView: React.FC<LessonViewProps> = ({
         <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-amber-500/30 space-y-8 text-center bg-slate-950/80">
           <div className="space-y-2">
             <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">
-              Step 1 of 3: Vocabulary Flashcards ({activeVocabIdx + 1}/{lesson.vocabulary.length})
+              Step 1 of 3: Vocabulary & Spoken Practice ({activeVocabIdx + 1}/{lesson.vocabulary.length})
             </span>
             <h3 className="font-serif text-3xl font-bold text-slate-100">
-              Listen & Master New Russian Words
+              Listen & Practice Spoken Pronunciation
             </h3>
           </div>
 
           {/* Flashcard Component */}
           {lesson.vocabulary[activeVocabIdx] && (
-            <div className="max-w-md mx-auto p-10 rounded-3xl bg-gradient-to-tr from-slate-900 via-slate-900 to-amber-950/40 border-2 border-amber-500/40 space-y-6 shadow-2xl">
+            <div className="max-w-md mx-auto space-y-6">
               
-              <div className="space-y-2">
-                <span className="text-xs text-slate-400 uppercase tracking-widest font-bold">Russian Word</span>
-                <h4 className="font-serif text-4xl font-extrabold text-amber-300">
-                  {lesson.vocabulary[activeVocabIdx].word}
-                </h4>
-                <p className="text-xs text-slate-300 font-mono">
-                  [{lesson.vocabulary[activeVocabIdx].pronunciation}]
-                </p>
+              <div className="p-8 rounded-3xl bg-gradient-to-tr from-slate-900 via-slate-900 to-amber-950/40 border-2 border-amber-500/40 space-y-4 shadow-2xl">
+                <div className="space-y-1">
+                  <span className="text-xs text-slate-400 uppercase tracking-widest font-bold">Russian Target Word</span>
+                  <h4 className="font-serif text-4xl font-extrabold text-amber-300">
+                    {lesson.vocabulary[activeVocabIdx].word}
+                  </h4>
+                  <p className="text-xs text-slate-300 font-mono">
+                    [{lesson.vocabulary[activeVocabIdx].pronunciation}]
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-slate-950/80 border border-white/5">
+                  <span className="text-xs text-slate-400 block mb-0.5">Translation:</span>
+                  <p className="text-base font-bold text-slate-100">
+                    "{lesson.vocabulary[activeVocabIdx].translation}"
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => handlePlayAudio(lesson.vocabulary[activeVocabIdx].word)}
+                  className="btn-gold text-xs mx-auto"
+                >
+                  <Volume2 size={16} />
+                  <span>Hear Native Audio</span>
+                </button>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/5">
-                <span className="text-xs text-slate-400 block mb-1">Translation:</span>
-                <p className="text-lg font-bold text-slate-100">
-                  "{lesson.vocabulary[activeVocabIdx].translation}"
-                </p>
-              </div>
-
-              <button
-                onClick={() => handlePlayAudio(lesson.vocabulary[activeVocabIdx].word)}
-                className="btn-gold text-sm mx-auto"
-              >
-                <Volume2 size={20} />
-                <span>Hear Native Audio</span>
-              </button>
+              {/* Integrated Voice Recorder */}
+              <VoiceRecorder targetPhrase={lesson.vocabulary[activeVocabIdx].word} />
 
             </div>
           )}

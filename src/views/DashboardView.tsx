@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserProfile } from '../types';
-import { Trophy, Flame, Sparkles, Award, Bookmark, Globe, Calendar, CheckCircle2 } from 'lucide-react';
+import { Trophy, Flame, Sparkles, Award, Bookmark, Globe, Calendar, CheckCircle2, HelpCircle, BookOpen } from 'lucide-react';
 import { playRussianSpeech } from '../utils/audioEngine';
 
 interface DashboardViewProps {
@@ -15,6 +15,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ userProfile }) => 
     { rank: 4, name: 'Lucas Silva', country: '🇧🇷 Brazil', xp: 380, streak: 3 },
     { rank: 5, name: 'Sophie Martin', country: '🇫🇷 France', xp: 310, streak: 2 }
   ];
+
+  // Generate 28-day simulated activity grid
+  const days = Array.from({ length: 28 }, (_, i) => {
+    const isLogged = i >= 22;
+    return { day: i + 1, active: isLogged };
+  });
 
   return (
     <div className="space-y-12 py-6">
@@ -42,6 +48,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ userProfile }) => 
             <p className="text-xs text-slate-400">
               Active Student • Global Russian Language Program
             </p>
+
+            {userProfile.placementResult && (
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[11px] font-semibold mt-1">
+                <HelpCircle size={12} />
+                <span>Placement Level: {userProfile.placementResult.recommendedLevel} ({userProfile.placementResult.score}/{userProfile.placementResult.total})</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -65,10 +78,39 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ userProfile }) => 
         </div>
       </div>
 
+      {/* ACTIVITY HEATMAP GRID */}
+      <div className="glass-panel p-6 rounded-3xl border border-white/10 space-y-4">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2">
+            <Calendar size={18} className="text-amber-400" />
+            <h3 className="font-serif text-lg font-bold text-slate-100">
+              30-Day Practice Activity Grid
+            </h3>
+          </div>
+          <span className="text-xs text-slate-400 font-semibold">Active Streak: {userProfile.streak} Days</span>
+        </div>
+
+        <div className="grid grid-cols-7 sm:grid-cols-14 gap-2 py-2">
+          {days.map(d => (
+            <div
+              key={d.day}
+              className={`h-9 rounded-lg flex items-center justify-center text-[10px] font-bold border transition-all ${
+                d.active
+                  ? 'bg-gradient-to-tr from-amber-500 to-rose-600 text-white border-amber-300 shadow-md'
+                  : 'bg-slate-900 border-white/5 text-slate-600'
+              }`}
+              title={`Day ${d.day}: ${d.active ? 'Completed Russian practice' : 'Rest day'}`}
+            >
+              Day {d.day}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* DASHBOARD GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        {/* Left: Achievements & Bookmarked Words */}
+        {/* Left: Achievements & SRS Flashcards Queue */}
         <div className="lg:col-span-7 space-y-8">
           
           {/* Badges Collection */}
@@ -102,19 +144,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ userProfile }) => 
               <div className="flex items-center gap-2">
                 <Bookmark size={18} className="text-rose-400" />
                 <h3 className="font-serif text-lg font-bold text-slate-100">
-                  Saved Vocabulary SRS Deck ({userProfile.bookmarkedWords.length})
+                  Saved SRS Flashcard Queue ({userProfile.srsCards?.length || 0})
                 </h3>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {userProfile.bookmarkedWords.map(word => (
+              {userProfile.srsCards?.map(card => (
                 <button
-                  key={word}
-                  onClick={() => playRussianSpeech(word)}
-                  className="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 hover:border-amber-400 font-serif font-bold text-sm text-slate-100 transition-colors flex items-center gap-2"
+                  key={card.id}
+                  onClick={() => playRussianSpeech(card.word)}
+                  className="px-3.5 py-2 rounded-xl bg-slate-900 border border-white/10 hover:border-amber-400 font-serif font-bold text-sm text-slate-100 transition-colors flex items-center gap-2"
                 >
-                  <span>{word}</span>
+                  <span>{card.word}</span>
                   <span className="text-[10px] text-amber-400">🔊</span>
                 </button>
               ))}
