@@ -12,7 +12,12 @@ import {
   Globe, 
   GraduationCap,
   HelpCircle,
-  Feather
+  Feather,
+  Headphones,
+  CheckSquare,
+  MapPin,
+  Book,
+  Shield
 } from 'lucide-react';
 import { playSoundEffect } from '../utils/audioEngine';
 
@@ -55,25 +60,30 @@ export const Navbar: React.FC<NavbarProps> = ({
     { view: 'courses', label: 'Curriculum', icon: <BookOpen size={14} /> },
     { view: 'cases', label: 'Cases', icon: <Compass size={14} /> },
     { view: 'dialogues', label: 'Dialogues', icon: <MessageSquare size={14} /> },
+    { view: 'dictation', label: 'Dictation', icon: <Headphones size={14} /> },
+    { view: 'quests', label: 'Quests', icon: <CheckSquare size={14} /> },
+    { view: 'map', label: 'Map', icon: <MapPin size={14} /> },
+    { view: 'idioms', label: 'Idioms', icon: <Book size={14} /> },
     { view: 'culture', label: 'Culture', icon: <Feather size={14} /> },
     { view: 'srs', label: 'SRS Deck', icon: <Sparkles size={14} /> },
     { view: 'placement', label: 'Placement', icon: <HelpCircle size={14} /> },
     { view: 'dashboard', label: 'Profile', icon: <Trophy size={14} /> },
+    { view: 'admin', label: 'Admin', icon: <Shield size={14} /> },
   ];
 
   return (
     <header className="sticky top-0 z-50 transition-colors bg-[var(--bg-main)]/90 backdrop-blur-md border-b border-[var(--border-light)]">
       
-      {/* Awwwards Top Infinite Marquee Banner */}
+      {/* Top Continuous Marquee Banner */}
       <div className="marquee-container">
         <div className="marquee-content">
-          ☺ RUSSIAN LANGUAGE INSTITUTE • AWWWARDS EDITORIAL LMS • INTERACTIVE CYRILLIC LAB • A1-C1 CEFR ROADMAP • WEB SPEECH VOICE ANALYZER • LEARN RUSSIAN WORLDWIDE ☺ RUSSIAN LANGUAGE INSTITUTE • AWWWARDS EDITORIAL LMS • INTERACTIVE CYRILLIC LAB • A1-C1 CEFR ROADMAP • WEB SPEECH VOICE ANALYZER • LEARN RUSSIAN WORLDWIDE
+          ☺ RUSSIAN LANGUAGE INSTITUTE • ALL 5 STAGES COMPLETE • DICTATION LAB • DAILY QUESTS & CERTIFICATES • MAP EXPLORER • IDIOMS DICTIONARY • A1-C1 CEFR ROADMAP ☺ RUSSIAN LANGUAGE INSTITUTE • ALL 5 STAGES COMPLETE • DICTATION LAB • DAILY QUESTS & CERTIFICATES • MAP EXPLORER • IDIOMS DICTIONARY
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4 py-3">
         
-        {/* Brand Editorial Logo */}
+        {/* Brand Logo */}
         <div 
           onClick={() => handleViewChange('home')}
           className="flex items-center gap-3 cursor-pointer group shrink-0"
@@ -87,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 РусскийМир
               </span>
               <span className="pill-badge text-[9px] bg-rose-500/10 text-rose-600 border-rose-500/30">
-                SOTD 9.8
+                All 5 Stages
               </span>
             </div>
             <p className="text-[10px] text-[var(--text-muted)] font-mono uppercase tracking-wider">
@@ -96,15 +106,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-full border border-[var(--border-light)]">
+        {/* Navigation Items */}
+        <nav className="hidden xl:flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-full border border-[var(--border-light)] overflow-x-auto max-w-2xl">
           {navItems.map((item) => {
             const isActive = activeView === item.view;
             return (
               <button
                 key={item.view}
                 onClick={() => handleViewChange(item.view)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
                   isActive
                     ? 'bg-[var(--text-primary)] text-[var(--bg-main)] shadow-sm'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'

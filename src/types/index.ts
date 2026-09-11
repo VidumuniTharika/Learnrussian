@@ -10,7 +10,12 @@ export type ActiveView =
   | 'dashboard'
   | 'placement'
   | 'srs'
-  | 'culture';
+  | 'culture'
+  | 'dictation'
+  | 'quests'
+  | 'map'
+  | 'idioms'
+  | 'admin';
 
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 
@@ -136,9 +141,9 @@ export interface SRSCardItem {
   pronunciation: string;
   exampleRu: string;
   exampleEn: string;
-  box: number; // Leitner box 1-5
-  lastReviewed: string; // ISO date
-  nextReviewDate: string; // ISO date
+  box: number;
+  lastReviewed: string;
+  nextReviewDate: string;
 }
 
 export interface CultureStory {
@@ -154,8 +159,43 @@ export interface CultureStory {
   vocabularyList: { word: string; translation: string }[];
 }
 
+export interface DictationItem {
+  id: string;
+  audioPrompt: string;
+  targetRu: string;
+  translationEn: string;
+  hint: string;
+}
+
+export interface DailyQuest {
+  id: string;
+  title: string;
+  titleRu: string;
+  rewardXp: number;
+  targetCount: number;
+  currentCount: number;
+  isCompleted: boolean;
+}
+
+export interface IdiomItem {
+  id: string;
+  idiomRu: string;
+  literalEn: string;
+  meaningEn: string;
+  exampleRu: string;
+}
+
+export interface CityLandmark {
+  id: string;
+  cityName: string;
+  cityNameRu: string;
+  region: string;
+  description: string;
+  keyPhrases: { ru: string; en: string }[];
+}
+
 export interface DailyActivityLog {
-  date: string; // YYYY-MM-DD
+  date: string;
   minutesSpent: number;
   lessonsCompleted: number;
   xpEarned: number;

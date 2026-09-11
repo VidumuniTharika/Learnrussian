@@ -13,6 +13,11 @@ import { DashboardView } from './views/DashboardView';
 import { PlacementTestView } from './views/PlacementTestView';
 import { SRSFlashcardsView } from './views/SRSFlashcardsView';
 import { CultureView } from './views/CultureView';
+import { DictationView } from './views/DictationView';
+import { DailyQuestsView } from './views/DailyQuestsView';
+import { MapStudioView } from './views/MapStudioView';
+import { IdiomsView } from './views/IdiomsView';
+import { AdminView } from './views/AdminView';
 
 export const App: React.FC = () => {
   const [activeView, setActiveView] = useState<ActiveView>('home');
@@ -124,6 +129,26 @@ export const App: React.FC = () => {
 
           {activeView === 'culture' && (
             <CultureView />
+          )}
+
+          {activeView === 'dictation' && (
+            <DictationView />
+          )}
+
+          {activeView === 'quests' && (
+            <DailyQuestsView userProfile={userProfile} />
+          )}
+
+          {activeView === 'map' && (
+            <MapStudioView />
+          )}
+
+          {activeView === 'idioms' && (
+            <IdiomsView />
+          )}
+
+          {activeView === 'admin' && (
+            <AdminView userProfile={userProfile} />
           )}
 
           {activeView === 'dashboard' && (
