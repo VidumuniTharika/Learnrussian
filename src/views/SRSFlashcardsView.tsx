@@ -78,7 +78,6 @@ export const SRSFlashcardsView: React.FC<SRSFlashcardsViewProps> = ({
             </div>
 
             {!isFlipped ? (
-              {/* FRONT OF CARD */}
               <div className="space-y-4 py-8">
                 <span className="text-xs text-slate-400 uppercase tracking-widest block font-bold">
                   Russian Word
@@ -102,7 +101,6 @@ export const SRSFlashcardsView: React.FC<SRSFlashcardsViewProps> = ({
                 </button>
               </div>
             ) : (
-              {/* BACK OF CARD */}
               <div className="space-y-4 py-6">
                 <span className="text-xs text-amber-400 uppercase tracking-widest block font-bold">
                   English Translation & Context
