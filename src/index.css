@@ -1,15 +1,15 @@
 /* ==========================================================================
-   РусскийМир (RussoLearn) - Awwwards Luxury Editorial Design System
-   Top Modern 3D Animations, Perspective Tilt & High-Fashion Imagery
+   РусскийМир (RussoLearn) - Awwwards Luxury Editorial & Frosted Glass Screen System
    ========================================================================== */
 
 :root {
-  /* Awwwards Editorial Color Palette (Light Mode Default) */
+  /* Awwwards Editorial & Glass Color Palette (Light Mode Default) */
   --bg-main: #f5f4f0;
-  --bg-surface: #ffffff;
-  --bg-surface-hover: #faf9f6;
-  --bg-card: #ffffff;
-  --bg-dock: rgba(255, 255, 255, 0.95);
+  --bg-surface: rgba(255, 255, 255, 0.8);
+  --bg-surface-hover: rgba(255, 255, 255, 0.95);
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --bg-dock: rgba(255, 255, 255, 0.85);
 
   --text-primary: #111111;
   --text-secondary: #444444;
@@ -17,7 +17,8 @@
   --text-accent: #d97706;
   --text-crimson: #be123c;
 
-  --border-light: #e2e0d8;
+  --border-light: rgba(17, 17, 17, 0.12);
+  --border-glass: rgba(255, 255, 255, 0.4);
   --border-strong: #111111;
   --border-glow: rgba(217, 119, 6, 0.4);
 
@@ -41,6 +42,7 @@
   --radius-lg: 24px;
 
   --shadow-editorial: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.08);
   --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-dock: 0 20px 50px -10px rgba(0, 0, 0, 0.15);
 }
@@ -48,10 +50,11 @@
 /* Dark Mode Overrides */
 [data-theme='dark'] {
   --bg-main: #090a0f;
-  --bg-surface: #12141c;
-  --bg-surface-hover: #1a1d29;
-  --bg-card: #12141c;
-  --bg-dock: rgba(18, 20, 28, 0.95);
+  --bg-surface: rgba(18, 20, 28, 0.85);
+  --bg-surface-hover: rgba(26, 29, 41, 0.95);
+  --bg-card: rgba(18, 20, 28, 0.75);
+  --bg-glass: rgba(15, 23, 42, 0.7);
+  --bg-dock: rgba(18, 20, 28, 0.9);
 
   --text-primary: #f4f4f6;
   --text-secondary: #a1a1aa;
@@ -60,8 +63,10 @@
   --text-crimson: #f43f5e;
 
   --border-light: rgba(255, 255, 255, 0.12);
+  --border-glass: rgba(255, 255, 255, 0.15);
   --border-strong: #ffffff;
   --shadow-editorial: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+  --shadow-glass: 0 20px 50px rgba(0, 0, 0, 0.5);
   --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
 
@@ -78,6 +83,36 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Frosted Glass Screen Background Overlay */
+.glass-screen {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass-screen-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-screen-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
 }
 
 /* Custom Scrollbars */
@@ -145,14 +180,16 @@ body {
   }
 }
 
-/* Hero Shimmer Glow Box */
+/* Hero Shimmer Glow Box with Glass Screen Effect */
 .hero-glow-box {
   position: relative;
-  background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(190, 18, 60, 0.08) 100%);
-  border: 2px solid var(--text-primary);
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid var(--border-glass);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-3d);
+  box-shadow: var(--shadow-glass);
 }
 
 /* Awwwards Score Badge */
@@ -172,7 +209,9 @@ body {
 /* Editorial Cards & 3D Tilt Effects */
 .editorial-card {
   background: var(--bg-card) !important;
-  border: 1px solid var(--border-light) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-md) !important;
   box-shadow: var(--shadow-editorial) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -181,6 +220,7 @@ body {
 .editorial-card:hover {
   border-color: var(--text-primary) !important;
   transform: translateY(-4px);
+  box-shadow: var(--shadow-glass) !important;
 }
 
 /* 3D Perspective Tilt Utilities */
@@ -307,7 +347,8 @@ body {
   font-weight: 700 !important;
   font-size: 13px !important;
   border: 1px solid var(--border-light) !important;
-  background: transparent !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(12px) !important;
   color: var(--text-primary) !important;
   cursor: pointer;
   display: inline-flex;
@@ -329,6 +370,7 @@ body {
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
   border: 1px solid var(--border-light) !important;
-  background: var(--bg-surface) !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(12px) !important;
   color: var(--text-primary) !important;
 }

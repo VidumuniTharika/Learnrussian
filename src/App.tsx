@@ -73,8 +73,14 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
-      <div>
+    <div className="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950 relative overflow-hidden">
+      
+      {/* Ambient Glass Screen Light Spheres */}
+      <div className="fixed top-10 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none animate-float-3d" />
+      <div className="fixed top-1/2 -right-32 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none animate-float-3d" />
+      <div className="fixed bottom-10 left-1/3 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none animate-float-3d" />
+
+      <div className="relative z-10">
         <Navbar
           activeView={activeView}
           setActiveView={setActiveView}
