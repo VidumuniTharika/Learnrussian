@@ -1,4 +1,4 @@
-# 🇷🇺 РусскийМир (RussoLearn Global LMS)
+#  РусскийМир (RussoLearn Global LMS)
 
 > A modern, interactive Learning Management System (LMS) designed for students worldwide to master the Russian language from **A1 Starter** to **C1 Advanced**.
 
