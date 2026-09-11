@@ -8,12 +8,12 @@
   --bg-main: #f5f4f0;
   --bg-surface: #ffffff;
   --bg-surface-hover: #faf9f6;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-dock: rgba(255, 255, 255, 0.85);
+  --bg-card: #ffffff;
+  --bg-dock: rgba(255, 255, 255, 0.95);
 
   --text-primary: #111111;
-  --text-secondary: #555555;
-  --text-muted: #888888;
+  --text-secondary: #444444;
+  --text-muted: #777777;
   --text-accent: #d97706;
   --text-crimson: #be123c;
 
@@ -40,8 +40,8 @@
   --radius-md: 16px;
   --radius-lg: 24px;
 
-  --shadow-editorial: 0 10px 40px -10px rgba(0, 0, 0, 0.07);
-  --shadow-dock: 0 20px 50px -10px rgba(0, 0, 0, 0.2);
+  --shadow-editorial: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  --shadow-dock: 0 20px 50px -10px rgba(0, 0, 0, 0.15);
 }
 
 /* Dark Mode Overrides */
@@ -49,8 +49,8 @@
   --bg-main: #090a0f;
   --bg-surface: #12141c;
   --bg-surface-hover: #1a1d29;
-  --bg-card: rgba(18, 20, 28, 0.85);
-  --bg-dock: rgba(18, 20, 28, 0.9);
+  --bg-card: #12141c;
+  --bg-dock: rgba(18, 20, 28, 0.95);
 
   --text-primary: #f4f4f6;
   --text-secondary: #a1a1aa;
@@ -58,7 +58,7 @@
   --text-accent: #fbbf24;
   --text-crimson: #f43f5e;
 
-  --border-light: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.12);
   --border-strong: #ffffff;
   --shadow-editorial: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
 }
@@ -66,14 +66,12 @@
 /* Reset & Global Base */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-main);
-  color: var(--text-primary);
+  background-color: var(--bg-main) !important;
+  color: var(--text-primary) !important;
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
@@ -95,16 +93,16 @@ body {
 
 /* Typography Classes */
 .font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-display) !important;
 }
 .font-serif {
-  font-family: var(--font-serif);
+  font-family: var(--font-serif) !important;
 }
 .font-cursive {
-  font-family: var(--font-cursive);
+  font-family: var(--font-cursive) !important;
 }
 .font-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono) !important;
 }
 
 /* Continuous Infinite Marquee Ticker */
@@ -146,27 +144,27 @@ body {
 
 /* Editorial Cards */
 .editorial-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-editorial);
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-editorial) !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-card:hover {
-  border-color: var(--text-primary);
-  transform: translateY(-4px);
+  border-color: var(--text-primary) !important;
+  transform: translateY(-3px);
 }
 
 /* Editorial Pill Buttons */
 .pill-btn {
-  border-radius: var(--radius-pill);
-  padding: 10px 22px;
-  font-weight: 700;
-  font-size: 13px;
-  border: 1px solid var(--text-primary);
-  background: var(--text-primary);
-  color: var(--bg-main);
+  border-radius: var(--radius-pill) !important;
+  padding: 10px 22px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  border: 1px solid var(--text-primary) !important;
+  background: var(--text-primary) !important;
+  color: var(--bg-main) !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -180,13 +178,13 @@ body {
 }
 
 .pill-btn-outline {
-  border-radius: var(--radius-pill);
-  padding: 10px 22px;
-  font-weight: 700;
-  font-size: 13px;
-  border: 1px solid var(--border-light);
-  background: transparent;
-  color: var(--text-primary);
+  border-radius: var(--radius-pill) !important;
+  padding: 10px 22px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  border: 1px solid var(--border-light) !important;
+  background: transparent !important;
+  color: var(--text-primary) !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -195,20 +193,20 @@ body {
 }
 
 .pill-btn-outline:hover {
-  border-color: var(--text-primary);
-  background: var(--bg-surface-hover);
+  border-color: var(--text-primary) !important;
+  background: var(--bg-surface-hover) !important;
 }
 
 .pill-badge {
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--border-light);
-  background: var(--bg-surface);
-  color: var(--text-primary);
+  border-radius: var(--radius-pill) !important;
+  padding: 4px 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border: 1px solid var(--border-light) !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Glass Floating Dock */
