@@ -7,18 +7,24 @@ import {
   BookOpen, 
   Volume2, 
   ArrowRight, 
-  Globe2, 
-  ShieldCheck, 
   Award, 
   Compass,
   Star,
   MapPin,
-  Feather
+  Feather,
+  Heart
 } from 'lucide-react';
 
 interface HomeViewProps {
   setActiveView: (view: ActiveView) => void;
 }
+
+// 100% Reliable Image URLs (Wikimedia Commons High-Res Links with Fallbacks)
+const LANDMARK_PHOTOS = {
+  redSquare: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Basil%27s_Cathedral-5_%28cropped%29.jpg/1200px-Saint_Basil%27s_Cathedral-5_%28cropped%29.jpg',
+  winterPalace: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Winter_Palace_in_Saint_Petersburg.jpg/1200px-Winter_Palace_in_Saint_Petersburg.jpg',
+  baikal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Baikal_ice_02.jpg/1200px-Baikal_ice_02.jpg'
+};
 
 export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
   const [activeLetter, setActiveLetter] = useState(CYRILLIC_ALPHABET[0]);
@@ -41,10 +47,61 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
   return (
     <div className="space-y-24 py-10 animate-fade-in-up">
       
-      {/* AWWWARDS LUXURY EDITORIAL HERO WITH 3D TILT SHOWCASE */}
+      {/* 1. "LEARN RUSSIAN WITH US" HERO BANNER WITH SMOOTH ANIMATION */}
+      <section className="hero-glow-box p-8 sm:p-14 text-center space-y-6 animate-fade-in-up">
+        
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-surface)] border border-[var(--border-light)] shadow-sm animate-float-3d">
+          <Heart size={14} className="text-rose-600 fill-rose-600" />
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-primary)]">
+            International Language Academy ✦
+          </span>
+        </div>
+
+        <div className="space-y-3 max-w-4xl mx-auto">
+          <h1 className="font-display text-4xl sm:text-7xl font-extrabold uppercase tracking-tight text-[var(--text-primary)] leading-none">
+            Learn Russian <span className="text-gradient-animated">With Us</span>
+          </h1>
+          <p className="font-serif italic text-2xl sm:text-3xl text-amber-600 font-bold">
+            «Учите русский язык с нами!»
+          </p>
+          <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl mx-auto font-sans leading-relaxed">
+            Join thousands of international students mastering Cyrillic, Russian cases, native pronunciation, and cultural fluency step-by-step.
+          </p>
+        </div>
+
+        {/* Audio Speech Button & CTA Controls */}
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+          <button
+            onClick={() => playRussianSpeech("Учите русский язык с нами!")}
+            className="pill-btn bg-amber-600 border-amber-600 text-white hover:scale-105 transition-all shadow-lg"
+          >
+            <Volume2 size={18} />
+            <span>Hear Phrase Audio</span>
+          </button>
+
+          <button
+            onClick={() => setActiveView('courses')}
+            className="pill-btn"
+          >
+            <span>Start Free Curriculum</span>
+            <ArrowRight size={16} />
+          </button>
+
+          <button
+            onClick={() => setActiveView('placement')}
+            className="pill-btn-outline"
+          >
+            <Sparkles size={16} className="text-rose-600" />
+            <span>Take 3-Min Placement Quiz</span>
+          </button>
+        </div>
+
+      </section>
+
+      {/* 2. AWWWARDS EDITORIAL SHOWCASE WITH RELIABLE PHOTO CARDS */}
       <section className="relative space-y-10">
         
-        {/* Top Awwwards Badge & Date Bar */}
+        {/* Top Awwwards Score Badge Bar */}
         <div className="flex items-center justify-between">
           <div className="awwwards-score-badge animate-float-3d">
             <span className="text-[9px] uppercase font-mono font-bold text-[var(--text-muted)] tracking-widest block">SOTD</span>
@@ -54,68 +111,71 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
 
           <div className="text-right text-xs font-mono text-[var(--text-secondary)]">
             <span className="block font-bold">Site of the Day • Sep 11, 2026</span>
-            <span className="text-[10px] text-[var(--text-muted)]">Global Russian Language Program</span>
+            <span className="text-[10px] text-[var(--text-muted)]">Global Russian Institute</span>
           </div>
         </div>
 
         {/* GIANT EDITORIAL HEADLINE */}
         <div className="border-b border-t border-[var(--text-primary)] py-8 space-y-4 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
-            <h1 className="font-display text-5xl sm:text-8xl font-extrabold tracking-tighter uppercase leading-none text-[var(--text-primary)]">
+            <h2 className="font-display text-5xl sm:text-8xl font-extrabold tracking-tighter uppercase leading-none text-[var(--text-primary)]">
               РУССКИЙ ЯЗЫК
-            </h1>
+            </h2>
             <span className="font-serif italic text-xl sm:text-3xl text-amber-600 font-bold">
               Russian Institute
             </span>
           </div>
-          
-          <p className="text-base sm:text-xl text-[var(--text-secondary)] max-w-3xl font-sans leading-relaxed">
-            Master Cyrillic typography, interactive grammar case matrices, real-world dialogue simulators, and native speech recognition built for international students.
-          </p>
         </div>
 
-        {/* HERO 3D TILT PHOTO BANNER SHOWCASE */}
+        {/* HERO 3D TILT PHOTO BANNER SHOWCASE WITH RELIABLE WIKIMEDIA COMMONS LINKS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
           
           {/* Left Hero Photo 1: Moscow Red Square & St. Basil */}
           <div className="lg:col-span-7 card-3d-wrap">
-            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group">
+            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group bg-slate-900">
               <img
-                src="https://images.unsplash.com/photo-1513326718677-b964603b136b?auto=format&fit=crop&w=1200&q=80"
-                alt="Moscow Red Square"
+                src={LANDMARK_PHOTOS.redSquare}
+                alt="Moscow Red Square & St. Basil Cathedral"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+                onError={(e) => {
+                  // Fallback if network blocks external images
+                  e.currentTarget.style.display = 'none';
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-8 flex flex-col justify-end text-white">
                 <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-2">
-                  Moscow • Red Square
+                  Moscow • Red Square & Kremlin
                 </span>
-                <h3 className="font-display text-3xl font-extrabold uppercase">
+                <h3 className="font-display text-3xl font-extrabold uppercase text-white">
                   От нуля до свободного владения
                 </h3>
                 <p className="text-xs text-slate-300 font-serif italic mt-1">
-                  From zero to confident fluency with native audio synthesis
+                  From zero to confident fluency with native speech recognition
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right Hero Photo 2: St. Petersburg Hermitage & Classical Architecture */}
+          {/* Right Hero Photo 2: St. Petersburg Winter Palace / Hermitage */}
           <div className="lg:col-span-5 card-3d-wrap">
-            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group">
+            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group bg-slate-900">
               <img
-                src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80"
-                alt="St Petersburg Hermitage"
+                src={LANDMARK_PHOTOS.winterPalace}
+                alt="St Petersburg Winter Palace"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-8 flex flex-col justify-end text-white">
                 <span className="pill-badge bg-amber-500 text-slate-950 border-amber-400 text-[10px] w-fit mb-2">
                   St. Petersburg • Winter Palace
                 </span>
-                <h3 className="font-display text-2xl font-bold uppercase">
+                <h3 className="font-display text-2xl font-bold uppercase text-white">
                   Cultural Immersion
                 </h3>
                 <p className="text-xs text-amber-300 font-sans mt-1">
-                  Read Pushkin poetry & explore Russian heritage
+                  Read Pushkin poetry & explore Russian history
                 </p>
               </div>
             </div>
@@ -123,7 +183,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
 
         </div>
 
-        {/* Action Buttons & Stats */}
+        {/* Action Bar & Stats */}
         <div className="flex flex-wrap items-center justify-between gap-6 pt-4">
           <div className="flex items-center gap-4">
             <button
