@@ -50,56 +50,64 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const navItems: { view: ActiveView; label: string; icon: React.ReactNode }[] = [
-    { view: 'home', label: 'Home', icon: <GraduationCap size={16} /> },
-    { view: 'alphabet', label: 'Alphabet', icon: <Sparkles size={16} /> },
-    { view: 'courses', label: 'Courses', icon: <BookOpen size={16} /> },
-    { view: 'cases', label: 'Cases', icon: <Compass size={16} /> },
-    { view: 'dialogues', label: 'Dialogues', icon: <MessageSquare size={16} /> },
-    { view: 'culture', label: 'Culture', icon: <Feather size={16} /> },
-    { view: 'srs', label: 'SRS Deck', icon: <Sparkles size={16} /> },
-    { view: 'placement', label: 'Placement', icon: <HelpCircle size={16} /> },
-    { view: 'dashboard', label: 'Profile', icon: <Trophy size={16} /> },
+    { view: 'home', label: 'Home', icon: <GraduationCap size={14} /> },
+    { view: 'alphabet', label: 'Alphabet', icon: <Sparkles size={14} /> },
+    { view: 'courses', label: 'Curriculum', icon: <BookOpen size={14} /> },
+    { view: 'cases', label: 'Cases', icon: <Compass size={14} /> },
+    { view: 'dialogues', label: 'Dialogues', icon: <MessageSquare size={14} /> },
+    { view: 'culture', label: 'Culture', icon: <Feather size={14} /> },
+    { view: 'srs', label: 'SRS Deck', icon: <Sparkles size={14} /> },
+    { view: 'placement', label: 'Placement', icon: <HelpCircle size={14} /> },
+    { view: 'dashboard', label: 'Profile', icon: <Trophy size={14} /> },
   ];
 
   return (
-    <header className="glass-panel sticky top-0 z-50 transition-colors border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 transition-colors bg-[var(--bg-main)]/90 backdrop-blur-md border-b border-[var(--border-light)]">
+      
+      {/* Awwwards Top Infinite Marquee Banner */}
+      <div className="marquee-container">
+        <div className="marquee-content">
+          ☺ RUSSIAN LANGUAGE INSTITUTE • AWWWARDS EDITORIAL LMS • INTERACTIVE CYRILLIC LAB • A1-C1 CEFR ROADMAP • WEB SPEECH VOICE ANALYZER • LEARN RUSSIAN WORLDWIDE ☺ RUSSIAN LANGUAGE INSTITUTE • AWWWARDS EDITORIAL LMS • INTERACTIVE CYRILLIC LAB • A1-C1 CEFR ROADMAP • WEB SPEECH VOICE ANALYZER • LEARN RUSSIAN WORLDWIDE
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4 py-3">
         
-        {/* Brand Logo */}
+        {/* Brand Editorial Logo */}
         <div 
           onClick={() => handleViewChange('home')}
           className="flex items-center gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-600 to-amber-400 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-            <span className="text-white font-serif text-xl font-bold">РМ</span>
+          <div className="w-10 h-10 rounded-xl border border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-main)] flex items-center justify-center font-display font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
+            РМ.
           </div>
-          <div className="hidden sm:block">
+          <div>
             <div className="flex items-center gap-2">
-              <span className="font-serif text-xl font-bold tracking-tight text-gradient-gold">
+              <span className="font-display text-lg font-extrabold tracking-tight">
                 РусскийМир
               </span>
-              <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">
-                Stage 2
+              <span className="pill-badge text-[9px] bg-rose-500/10 text-rose-600 border-rose-500/30">
+                SOTD 9.8
               </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-sans">
-              Global Russian LMS
+            <p className="text-[10px] text-[var(--text-muted)] font-mono uppercase tracking-wider">
+              Global Editorial LMS
             </p>
           </div>
         </div>
 
-        {/* Navigation Items */}
-        <nav className="hidden xl:flex items-center gap-1 bg-slate-900/40 p-1.5 rounded-2xl border border-white/5 overflow-x-auto">
+        {/* Navigation Links */}
+        <nav className="hidden xl:flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-full border border-[var(--border-light)]">
           {navItems.map((item) => {
             const isActive = activeView === item.view;
             return (
               <button
                 key={item.view}
                 onClick={() => handleViewChange(item.view)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                    ? 'bg-[var(--text-primary)] text-[var(--bg-main)] shadow-sm'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
                 }`}
               >
                 {item.icon}
@@ -109,18 +117,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* Right Controls: Streaks, XP, Language & Theme */}
+        {/* Right Controls */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           
           {/* Streak Counter */}
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold shadow-sm" title="Active Daily Practice Streak">
-            <Flame size={16} className="text-amber-500 fill-amber-500 animate-bounce" />
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--border-light)] bg-[var(--bg-surface)] text-xs font-bold">
+            <Flame size={14} className="text-amber-500 fill-amber-500" />
             <span>{userProfile.streak}d</span>
           </div>
 
           {/* XP Counter */}
-          <div className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold">
-            <Sparkles size={14} className="text-indigo-400" />
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--border-light)] bg-[var(--bg-surface)] text-xs font-bold">
+            <Sparkles size={14} className="text-amber-500" />
             <span>{userProfile.xp} XP</span>
           </div>
 
@@ -128,14 +136,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative">
             <button
               onClick={() => setLangMenuOpen(!langMenuOpen)}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 text-xs font-medium transition-colors"
+              className="flex items-center gap-1 px-3 py-1 rounded-full border border-[var(--border-light)] bg-[var(--bg-surface)] text-xs font-bold"
             >
-              <Globe size={14} className="text-amber-400" />
-              <span className="uppercase text-[10px] font-bold">{userProfile.selectedLanguage}</span>
+              <Globe size={14} className="text-amber-500" />
+              <span className="uppercase text-[10px]">{userProfile.selectedLanguage}</span>
             </button>
 
             {langMenuOpen && (
-              <div className="absolute right-0 mt-2 w-36 glass-panel rounded-xl py-2 shadow-2xl z-50 border border-white/10">
+              <div className="absolute right-0 mt-2 w-36 bg-[var(--bg-surface)] rounded-2xl py-2 shadow-2xl z-50 border border-[var(--border-light)]">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
@@ -143,8 +151,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setUserProfile(prev => ({ ...prev, selectedLanguage: lang.code }));
                       setLangMenuOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-1.5 text-xs font-semibold hover:bg-white/10 transition-colors ${
-                      userProfile.selectedLanguage === lang.code ? 'text-amber-400 font-bold bg-white/5' : 'text-slate-300'
+                    className={`w-full flex items-center justify-between px-3 py-1.5 text-xs font-semibold hover:bg-[var(--bg-surface-hover)] transition-colors ${
+                      userProfile.selectedLanguage === lang.code ? 'text-amber-500 font-bold' : 'text-[var(--text-secondary)]'
                     }`}
                   >
                     <span>{lang.flag} {lang.label}</span>
@@ -158,22 +166,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Theme Toggle */}
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 text-amber-400 transition-colors"
+            className="p-2 rounded-full border border-[var(--border-light)] bg-[var(--bg-surface)] text-amber-500 transition-colors"
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} className="text-slate-700" />}
+            {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} className="text-[var(--text-primary)]" />}
           </button>
         </div>
 
       </div>
 
       {/* Mobile Nav Bar */}
-      <div className="xl:hidden flex items-center justify-around py-2 bg-slate-950/90 border-t border-white/5 px-1 overflow-x-auto">
+      <div className="xl:hidden flex items-center justify-around py-2 bg-[var(--bg-surface)] border-t border-[var(--border-light)] px-1 overflow-x-auto">
         {navItems.map((item) => (
           <button
             key={item.view}
             onClick={() => handleViewChange(item.view)}
-            className={`flex flex-col items-center gap-0.5 p-1.5 rounded-lg text-[10px] font-semibold whitespace-nowrap ${
-              activeView === item.view ? 'text-amber-400 font-bold' : 'text-slate-400'
+            className={`flex flex-col items-center gap-0.5 p-1 rounded-lg text-[10px] font-bold whitespace-nowrap ${
+              activeView === item.view ? 'text-[var(--text-primary)] underline font-extrabold' : 'text-[var(--text-muted)]'
             }`}
           >
             {item.icon}
@@ -181,6 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         ))}
       </div>
+
     </header>
   );
 };
