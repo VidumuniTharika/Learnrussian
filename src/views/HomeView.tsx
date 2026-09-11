@@ -59,8 +59,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
         </div>
 
         <div className="space-y-3 max-w-4xl mx-auto">
-          <h1 className="font-display text-4xl sm:text-7xl font-extrabold uppercase tracking-tight text-[var(--text-primary)] leading-none">
-            Learn Russian <span className="text-gradient-animated">With Us</span>
+          <h1 className="font-display text-4xl sm:text-7xl lg:text-8xl font-extrabold uppercase tracking-tight leading-none">
+            <span className="text-gradient-animated-full">
+              Learn Russian With Us
+            </span>
           </h1>
           <p className="font-serif italic text-2xl sm:text-3xl text-amber-600 font-bold">
             «Учите русский язык с нами!»
