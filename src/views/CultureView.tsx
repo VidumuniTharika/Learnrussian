@@ -10,7 +10,7 @@ const CULTURAL_STORIES: (CultureStory & { image: string })[] = [
     titleRu: 'Александр Пушкин — Поэзия',
     category: 'Literature',
     readTimeMinutes: 4,
-    image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1000',
     excerptRu: 'У лукоморья дуб зелёный; Златая цепь на дубе том: И днём и ночью кот учёный Всё ходит по цепи кругом...',
     excerptEn: 'By the curved seashore stands a green oak; A golden chain is upon that oak: And day and night a learned cat walks round and round upon the chain...',
     fullStoryRu: 'У лукоморья дуб зелёный; Златая цепь на дубе том: И днём и ночью кот учёный Всё ходит по цепи кругом; Идёт направо — песнь заводит, Налево — сказку говорит.',
@@ -28,7 +28,7 @@ const CULTURAL_STORIES: (CultureStory & { image: string })[] = [
     titleRu: 'Государственный Эрмитаж в Санкт-Петербурге',
     category: 'History',
     readTimeMinutes: 5,
-    image: 'https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/3889855/pexels-photo-3889855.jpeg?auto=compress&cs=tinysrgb&w=1000',
     excerptRu: 'Эрмитаж — один из крупнейших художественных музеев мира, расположенный в Зимнем дворце на берегу Невы.',
     excerptEn: 'The Hermitage is one of the largest art museums in the world, located in the Winter Palace on the banks of the Neva River.',
     fullStoryRu: 'Основанный в 1764 году императрицей Екатериной Великой, музей содержит более трёх миллионов произведений искусства.',
@@ -46,7 +46,7 @@ const CULTURAL_STORIES: (CultureStory & { image: string })[] = [
     titleRu: 'Транссибирская магистраль и Озеро Байкал',
     category: 'Travel',
     readTimeMinutes: 6,
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg?auto=compress&cs=tinysrgb&w=1000',
     excerptRu: 'Самая длинная железная дорога в мире соединяет Москву с Владивостоком, проходя мимо великого озера Байкал.',
     excerptEn: 'The longest railway in the world connects Moscow with Vladivostok, passing by the great Lake Baikal.',
     fullStoryRu: 'Озеро Байкал — самое глубокое и древнее пресноводное озеро на Земле. Его вода кристально чистая.',
@@ -114,16 +114,18 @@ export const CultureView: React.FC = () => {
           <div className="editorial-card p-8 sm:p-10 bg-[var(--bg-surface)] space-y-6 card-3d-hover">
             
             {/* Story Header Photo Banner */}
-            <div className="img-editorial h-64 sm:h-80 border border-[var(--border-light)]">
+            <div className="img-editorial h-64 sm:h-80 border border-[var(--border-light)] bg-slate-900">
               <img
                 src={selectedStory.image}
                 alt={selectedStory.title}
+                referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-6 flex flex-col justify-end text-white">
                 <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-1">
                   {selectedStory.category} • {selectedStory.readTimeMinutes} Mins Read
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-extrabold uppercase">
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold uppercase text-white">
                   {selectedStory.title}
                 </h2>
               </div>

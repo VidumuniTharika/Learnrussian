@@ -9,7 +9,7 @@ const CITIES_DATA: (CityLandmark & { image: string })[] = [
     cityName: 'Moscow',
     cityNameRu: 'Москва',
     region: 'Capital Region',
-    image: 'https://images.unsplash.com/photo-1513326718677-b964603b136b?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg?auto=compress&cs=tinysrgb&w=1000',
     description: 'The historic capital of Russia, famous for the Kremlin, Red Square, Saint Basil Cathedral, and Bolshoi Theatre.',
     keyPhrases: [
       { ru: 'Где находится Красная площадь?', en: 'Where is Red Square located?' },
@@ -22,7 +22,7 @@ const CITIES_DATA: (CityLandmark & { image: string })[] = [
     cityName: 'Saint Petersburg',
     cityNameRu: 'Санкт-Петербург',
     region: 'Northwest Region',
-    image: 'https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/3889855/pexels-photo-3889855.jpeg?auto=compress&cs=tinysrgb&w=1000',
     description: 'The cultural capital of Russia, renowned for the Winter Palace, Hermitage Museum, white nights, and Neva bridges.',
     keyPhrases: [
       { ru: 'Когда разводят мосты?', en: 'When do the drawbridges open?' },
@@ -34,7 +34,7 @@ const CITIES_DATA: (CityLandmark & { image: string })[] = [
     cityName: 'Lake Baikal',
     cityNameRu: 'Озеро Байкал',
     region: 'Siberia',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1000',
     description: 'The deepest and oldest freshwater lake in the world, holding 20% of the world unfrozen fresh surface water.',
     keyPhrases: [
       { ru: 'Байкал очень глубокий.', en: 'Baikal is very deep.' },
@@ -46,7 +46,7 @@ const CITIES_DATA: (CityLandmark & { image: string })[] = [
     cityName: 'Vladivostok',
     cityNameRu: 'Владивосток',
     region: 'Far East',
-    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg?auto=compress&cs=tinysrgb&w=1000',
     description: 'The eastern terminus of the Trans-Siberian Railway and Russia major Pacific ocean port city.',
     keyPhrases: [
       { ru: 'Это конец Транссибирской магистрали.', en: 'This is the end of the Trans-Siberian Railway.' }
@@ -103,16 +103,18 @@ export const MapStudioView: React.FC = () => {
         <div className="lg:col-span-7 editorial-card p-8 bg-[var(--bg-surface)] space-y-6 card-3d-hover">
           
           {/* City Image Header */}
-          <div className="img-editorial h-64 border border-[var(--border-light)]">
+          <div className="img-editorial h-64 border border-[var(--border-light)] bg-slate-900">
             <img
               src={selectedCity.image}
               alt={selectedCity.cityName}
+              referrerPolicy="no-referrer"
+              crossOrigin="anonymous"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-6 flex flex-col justify-end text-white">
               <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-1">
                 {selectedCity.region}
               </span>
-              <h2 className="font-display text-3xl font-extrabold uppercase">
+              <h2 className="font-display text-3xl font-extrabold uppercase text-white">
                 {selectedCity.cityName}
               </h2>
             </div>
