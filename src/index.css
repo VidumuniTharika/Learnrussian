@@ -1,6 +1,6 @@
 /* ==========================================================================
    РусскийМир (RussoLearn) - Awwwards Luxury Editorial Design System
-   Inspired by Awwwards Site of the Day / White Desert
+   Top Modern 3D Animations, Perspective Tilt & High-Fashion Imagery
    ========================================================================== */
 
 :root {
@@ -41,6 +41,7 @@
   --radius-lg: 24px;
 
   --shadow-editorial: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-dock: 0 20px 50px -10px rgba(0, 0, 0, 0.15);
 }
 
@@ -61,6 +62,7 @@
   --border-light: rgba(255, 255, 255, 0.12);
   --border-strong: #ffffff;
   --shadow-editorial: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+  --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
 
 /* Reset & Global Base */
@@ -142,18 +144,114 @@ body {
   align-items: center;
 }
 
-/* Editorial Cards */
+/* Editorial Cards & 3D Tilt Effects */
 .editorial-card {
   background: var(--bg-card) !important;
   border: 1px solid var(--border-light) !important;
   border-radius: var(--radius-md) !important;
   box-shadow: var(--shadow-editorial) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-card:hover {
   border-color: var(--text-primary) !important;
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+}
+
+/* 3D Perspective Tilt Utilities */
+.card-3d-wrap {
+  perspective: 1000px;
+}
+
+.card-3d-hover {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.card-3d-hover:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateZ(12px);
+  box-shadow: var(--shadow-3d);
+}
+
+/* 3D Flashcard Flip Animation */
+.flip-card-3d {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.flip-card-inner-3d {
+  position: relative;
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner-3d.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front-3d, .flip-card-back-3d {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  width: 100%;
+}
+
+.flip-card-back-3d {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+/* High-Fashion Photo Styling */
+.img-editorial {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.img-editorial img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  filter: brightness(0.95) contrast(1.05);
+}
+
+.img-editorial:hover img {
+  transform: scale(1.06);
+  filter: brightness(1) contrast(1.1);
+}
+
+/* Page View Transition Animations */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating 3D Element Animation */
+@keyframes float3D {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-float-3d {
+  animation: float3D 6s infinite ease-in-out;
 }
 
 /* Editorial Pill Buttons */
@@ -174,7 +272,7 @@ body {
 
 .pill-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
 }
 
 .pill-btn-outline {
@@ -207,23 +305,4 @@ body {
   border: 1px solid var(--border-light) !important;
   background: var(--bg-surface) !important;
   color: var(--text-primary) !important;
-}
-
-/* Glass Floating Dock */
-.floating-bottom-dock {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 99;
-  background: var(--bg-dock);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-pill);
-  padding: 6px 12px;
-  box-shadow: var(--shadow-dock);
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }

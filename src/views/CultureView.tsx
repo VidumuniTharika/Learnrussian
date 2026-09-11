@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { CultureStory } from '../types';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
-import { BookOpen, Volume2, Sparkles, Compass, MapPin, Feather } from 'lucide-react';
+import { BookOpen, Volume2, Feather } from 'lucide-react';
 
-const CULTURAL_STORIES: CultureStory[] = [
+const CULTURAL_STORIES: (CultureStory & { image: string })[] = [
   {
     id: 'cult-1',
     title: 'Pushkin: У лукоморья дуб зелёный',
     titleRu: 'Александр Пушкин — Поэзия',
     category: 'Literature',
     readTimeMinutes: 4,
+    image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1000&q=80',
     excerptRu: 'У лукоморья дуб зелёный; Златая цепь на дубе том: И днём и ночью кот учёный Всё ходит по цепи кругом...',
     excerptEn: 'By the curved seashore stands a green oak; A golden chain is upon that oak: And day and night a learned cat walks round and round upon the chain...',
     fullStoryRu: 'У лукоморья дуб зелёный; Златая цепь на дубе том: И днём и ночью кот учёный Всё ходит по цепи кругом; Идёт направо — песнь заводит, Налево — сказку говорит.',
@@ -27,6 +28,7 @@ const CULTURAL_STORIES: CultureStory[] = [
     titleRu: 'Государственный Эрмитаж в Санкт-Петербурге',
     category: 'History',
     readTimeMinutes: 5,
+    image: 'https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80',
     excerptRu: 'Эрмитаж — один из крупнейших художественных музеев мира, расположенный в Зимнем дворце на берегу Невы.',
     excerptEn: 'The Hermitage is one of the largest art museums in the world, located in the Winter Palace on the banks of the Neva River.',
     fullStoryRu: 'Основанный в 1764 году императрицей Екатериной Великой, музей содержит более трёх миллионов произведений искусства.',
@@ -44,6 +46,7 @@ const CULTURAL_STORIES: CultureStory[] = [
     titleRu: 'Транссибирская магистраль и Озеро Байкал',
     category: 'Travel',
     readTimeMinutes: 6,
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
     excerptRu: 'Самая длинная железная дорога в мире соединяет Москву с Владивостоком, проходя мимо великого озера Байкал.',
     excerptEn: 'The longest railway in the world connects Moscow with Vladivostok, passing by the great Lake Baikal.',
     fullStoryRu: 'Озеро Байкал — самое глубокое и древнее пресноводное озеро на Земле. Его вода кристально чистая.',
@@ -58,7 +61,7 @@ const CULTURAL_STORIES: CultureStory[] = [
 ];
 
 export const CultureView: React.FC = () => {
-  const [selectedStory, setSelectedStory] = useState<CultureStory>(CULTURAL_STORIES[0]);
+  const [selectedStory, setSelectedStory] = useState<CultureStory & { image: string }>(CULTURAL_STORIES[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleSpeech = async (text: string) => {
@@ -68,20 +71,17 @@ export const CultureView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12 py-6">
+    <div className="space-y-12 py-8 animate-fade-in-up">
       
       {/* HEADER */}
-      <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-4 bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950/40">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider">
-          <Feather size={14} />
-          <span>Cultural Reader & Narration</span>
-        </div>
+      <div className="border-b border-[var(--text-primary)] pb-8 space-y-4">
+        <span className="pill-badge">Cultural Reader & Narration</span>
 
-        <h1 className="font-serif text-3xl font-bold text-slate-100">
+        <h1 className="font-display text-4xl sm:text-5xl font-extrabold uppercase text-[var(--text-primary)]">
           Russian Cultural Immersion Hub
         </h1>
         
-        <p className="text-sm text-slate-300 max-w-2xl">
+        <p className="text-sm text-[var(--text-secondary)] max-w-2xl">
           Immerse yourself in Pushkin's poetry, St. Petersburg history, and Trans-Siberian travel narratives with audio narration and vocabulary guides.
         </p>
 
@@ -94,37 +94,44 @@ export const CultureView: React.FC = () => {
                 playSoundEffect('click');
                 setSelectedStory(story);
               }}
-              className={`px-4 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-full font-bold text-xs transition-all flex items-center gap-2 ${
                 selectedStory.id === story.id
-                  ? 'bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-lg scale-105'
-                  : 'bg-slate-900 border border-white/10 text-slate-300 hover:bg-slate-800'
+                  ? 'bg-[var(--text-primary)] text-[var(--bg-main)] shadow-md scale-105'
+                  : 'bg-[var(--bg-surface)] border border-[var(--border-light)] text-[var(--text-secondary)]'
               }`}
             >
               <span>{story.title}</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-amber-400 font-serif">
-                {story.category}
-              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* ACTIVE STORY READER */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* ACTIVE STORY READER WITH PHOTO & 3D TILT */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left: Story Text & Narration */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-amber-500/30 bg-slate-950/90 space-y-6 shadow-2xl">
+          <div className="editorial-card p-8 sm:p-10 bg-[var(--bg-surface)] space-y-6 card-3d-hover">
             
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <div>
-                <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">
+            {/* Story Header Photo Banner */}
+            <div className="img-editorial h-64 sm:h-80 border border-[var(--border-light)]">
+              <img
+                src={selectedStory.image}
+                alt={selectedStory.title}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end text-white">
+                <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-1">
                   {selectedStory.category} • {selectedStory.readTimeMinutes} Mins Read
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-100">
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold uppercase">
                   {selectedStory.title}
                 </h2>
-                <p className="text-xs text-amber-300 font-serif font-bold italic">
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between border-b border-[var(--border-light)] pb-4">
+              <div>
+                <p className="text-xs text-amber-600 font-serif font-bold italic text-base">
                   «{selectedStory.titleRu}»
                 </p>
               </div>
@@ -132,30 +139,29 @@ export const CultureView: React.FC = () => {
               <button
                 onClick={() => handleSpeech(selectedStory.fullStoryRu)}
                 disabled={isPlaying}
-                className="p-3.5 rounded-2xl bg-rose-600 text-white hover:bg-rose-500 transition-transform shadow-lg flex items-center gap-2"
-                title="Play Audio Narration"
+                className="pill-btn py-2 px-4 text-xs"
               >
-                <Volume2 size={20} className={isPlaying ? 'animate-bounce' : ''} />
-                <span className="text-xs font-bold hidden sm:inline">Listen Narration</span>
+                <Volume2 size={16} className={isPlaying ? 'animate-bounce' : ''} />
+                <span>Listen Audio Narration</span>
               </button>
             </div>
 
             {/* Russian Text Box */}
-            <div className="p-6 rounded-2xl bg-slate-900 border border-white/10 space-y-3">
-              <span className="text-xs text-amber-400 font-bold uppercase tracking-wider block">
+            <div className="p-6 rounded-2xl bg-[var(--bg-main)] border border-[var(--border-light)] space-y-2">
+              <span className="text-xs font-mono uppercase text-amber-600 font-bold block">
                 Russian Text (Текст):
               </span>
-              <p className="font-serif text-lg sm:text-xl text-amber-200 leading-relaxed font-semibold">
+              <p className="font-serif text-lg sm:text-xl text-[var(--text-primary)] leading-relaxed font-semibold">
                 "{selectedStory.fullStoryRu}"
               </p>
             </div>
 
             {/* English Translation Box */}
-            <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 space-y-2">
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">
+            <div className="p-6 rounded-2xl bg-[var(--bg-main)] border border-[var(--border-light)] space-y-2">
+              <span className="text-xs font-mono text-[var(--text-muted)] uppercase font-bold block">
                 English Parallel Translation:
               </span>
-              <p className="text-sm text-slate-300 leading-relaxed italic">
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed italic">
                 "{selectedStory.fullStoryEn}"
               </p>
             </div>
@@ -165,28 +171,28 @@ export const CultureView: React.FC = () => {
 
         {/* Right: Vocabulary Spotlight */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="glass-panel p-6 rounded-3xl border border-white/10 bg-slate-950/80 space-y-4">
-            <div className="flex items-center gap-2 border-b border-white/10 pb-3">
-              <BookOpen size={18} className="text-amber-400" />
-              <h3 className="font-serif text-lg font-bold text-slate-100">
+          <div className="editorial-card p-6 bg-[var(--bg-surface)] space-y-4">
+            <div className="flex items-center gap-2 border-b border-[var(--border-light)] pb-3">
+              <BookOpen size={18} className="text-amber-600" />
+              <h3 className="font-display text-lg font-bold text-[var(--text-primary)]">
                 Key Story Vocabulary
               </h3>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {selectedStory.vocabularyList.map((v, i) => (
                 <div
                   key={i}
                   onClick={() => playRussianSpeech(v.word)}
-                  className="p-3.5 rounded-2xl bg-slate-900 border border-white/5 hover:border-amber-400/50 cursor-pointer transition-all flex items-center justify-between group"
+                  className="p-3.5 rounded-2xl bg-[var(--bg-main)] border border-[var(--border-light)] hover:border-[var(--text-primary)] cursor-pointer transition-all flex items-center justify-between group"
                 >
                   <div>
-                    <span className="font-serif text-base font-bold text-amber-300 group-hover:text-amber-400">
+                    <span className="font-serif text-base font-bold text-[var(--text-primary)]">
                       {v.word}
                     </span>
-                    <p className="text-xs text-slate-400">{v.translation}</p>
+                    <p className="text-xs text-[var(--text-secondary)]">{v.translation}</p>
                   </div>
-                  <span className="text-xs text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
                     🔊
                   </span>
                 </div>

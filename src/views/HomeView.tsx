@@ -10,10 +10,10 @@ import {
   Globe2, 
   ShieldCheck, 
   Award, 
-  MessageCircle,
-  Play,
   Compass,
-  Star
+  Star,
+  MapPin,
+  Feather
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -39,17 +39,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
   };
 
   return (
-    <div className="space-y-24 py-10">
+    <div className="space-y-24 py-10 animate-fade-in-up">
       
-      {/* AWWWARDS LUXURY EDITORIAL HERO SECTION */}
-      <section className="relative space-y-8">
+      {/* AWWWARDS LUXURY EDITORIAL HERO WITH 3D TILT SHOWCASE */}
+      <section className="relative space-y-10">
         
         {/* Top Awwwards Badge & Date Bar */}
         <div className="flex items-center justify-between">
-          <div className="awwwards-score-badge">
-            <span className="text-[9px] uppercase font-bold text-[var(--text-muted)] tracking-widest block">SOTD</span>
+          <div className="awwwards-score-badge animate-float-3d">
+            <span className="text-[9px] uppercase font-mono font-bold text-[var(--text-muted)] tracking-widest block">SOTD</span>
             <span className="text-xl font-display font-extrabold text-[var(--text-primary)]">9.8</span>
-            <span className="text-[9px] text-[var(--text-muted)] font-bold">/10</span>
+            <span className="text-[9px] text-[var(--text-muted)] font-mono font-bold">/10</span>
           </div>
 
           <div className="text-right text-xs font-mono text-[var(--text-secondary)]">
@@ -74,9 +74,57 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
           </p>
         </div>
 
-        {/* Action Bar & Stats */}
-        <div className="flex flex-wrap items-center justify-between gap-6 pt-2">
+        {/* HERO 3D TILT PHOTO BANNER SHOWCASE */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
           
+          {/* Left Hero Photo 1: Moscow Red Square & St. Basil */}
+          <div className="lg:col-span-7 card-3d-wrap">
+            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group">
+              <img
+                src="https://images.unsplash.com/photo-1513326718677-b964603b136b?auto=format&fit=crop&w=1200&q=80"
+                alt="Moscow Red Square"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end text-white">
+                <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-2">
+                  Moscow • Red Square
+                </span>
+                <h3 className="font-display text-3xl font-extrabold uppercase">
+                  От нуля до свободного владения
+                </h3>
+                <p className="text-xs text-slate-300 font-serif italic mt-1">
+                  From zero to confident fluency with native audio synthesis
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Hero Photo 2: St. Petersburg Hermitage & Classical Architecture */}
+          <div className="lg:col-span-5 card-3d-wrap">
+            <div className="editorial-card card-3d-hover overflow-hidden rounded-3xl border border-[var(--border-light)] relative h-80 sm:h-96 group">
+              <img
+                src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80"
+                alt="St Petersburg Hermitage"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end text-white">
+                <span className="pill-badge bg-amber-500 text-slate-950 border-amber-400 text-[10px] w-fit mb-2">
+                  St. Petersburg • Winter Palace
+                </span>
+                <h3 className="font-display text-2xl font-bold uppercase">
+                  Cultural Immersion
+                </h3>
+                <p className="text-xs text-amber-300 font-sans mt-1">
+                  Read Pushkin poetry & explore Russian heritage
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Action Buttons & Stats */}
+        <div className="flex flex-wrap items-center justify-between gap-6 pt-4">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setActiveView('courses')}
@@ -97,19 +145,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
 
           <div className="flex items-center gap-8 font-mono text-xs">
             <div>
-              <span className="font-display text-xl font-bold block text-[var(--text-primary)]">33</span>
+              <span className="font-display text-2xl font-bold block text-[var(--text-primary)]">33</span>
               <span className="text-[var(--text-muted)] uppercase">Cyrillic Letters</span>
             </div>
             <div>
-              <span className="font-display text-xl font-bold block text-amber-600">6</span>
+              <span className="font-display text-2xl font-bold block text-amber-600">6</span>
               <span className="text-[var(--text-muted)] uppercase">Russian Cases</span>
             </div>
             <div>
-              <span className="font-display text-xl font-bold block text-emerald-600">140+</span>
+              <span className="font-display text-2xl font-bold block text-emerald-600">140+</span>
               <span className="text-[var(--text-muted)] uppercase">Nations</span>
             </div>
           </div>
-
         </div>
 
       </section>
@@ -136,7 +183,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
                 <button
                   key={letter.id}
                   onClick={() => handlePlayLetter(letter)}
-                  className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between ${
+                  className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-between card-3d-hover ${
                     isSelected
                       ? 'bg-[var(--text-primary)] text-[var(--bg-main)] border-[var(--text-primary)] shadow-lg scale-105'
                       : 'bg-[var(--bg-surface)] border-[var(--border-light)] text-[var(--text-primary)] hover:border-[var(--text-primary)]'
@@ -159,7 +206,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
         </div>
 
         {/* Right: Active Letter Detail Drawer */}
-        <div className="lg:col-span-5 editorial-card p-8 bg-[var(--bg-surface)] space-y-6">
+        <div className="lg:col-span-5 editorial-card p-8 bg-[var(--bg-surface)] space-y-6 card-3d-hover">
           <div className="flex items-center justify-between border-b border-[var(--border-light)] pb-4">
             <div>
               <span className="text-xs font-mono uppercase text-amber-600 font-bold">Selected Symbol</span>
@@ -229,7 +276,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
             <div
               key={course.id}
               onClick={() => setActiveView('courses')}
-              className="editorial-card p-6 cursor-pointer space-y-6 flex flex-col justify-between"
+              className="editorial-card p-6 cursor-pointer space-y-6 flex flex-col justify-between card-3d-hover"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

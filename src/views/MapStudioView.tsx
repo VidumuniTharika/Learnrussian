@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { CityLandmark } from '../types';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
-import { MapPin, Volume2, Compass, Sparkles, Navigation } from 'lucide-react';
+import { MapPin, Volume2, Navigation } from 'lucide-react';
 
-const CITIES_DATA: CityLandmark[] = [
+const CITIES_DATA: (CityLandmark & { image: string })[] = [
   {
     id: 'city-1',
     cityName: 'Moscow',
     cityNameRu: 'Москва',
     region: 'Capital Region',
+    image: 'https://images.unsplash.com/photo-1513326718677-b964603b136b?auto=format&fit=crop&w=1000&q=80',
     description: 'The historic capital of Russia, famous for the Kremlin, Red Square, Saint Basil Cathedral, and Bolshoi Theatre.',
     keyPhrases: [
       { ru: 'Где находится Красная площадь?', en: 'Where is Red Square located?' },
@@ -21,6 +22,7 @@ const CITIES_DATA: CityLandmark[] = [
     cityName: 'Saint Petersburg',
     cityNameRu: 'Санкт-Петербург',
     region: 'Northwest Region',
+    image: 'https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&fit=crop&w=1000&q=80',
     description: 'The cultural capital of Russia, renowned for the Winter Palace, Hermitage Museum, white nights, and Neva bridges.',
     keyPhrases: [
       { ru: 'Когда разводят мосты?', en: 'When do the drawbridges open?' },
@@ -32,6 +34,7 @@ const CITIES_DATA: CityLandmark[] = [
     cityName: 'Lake Baikal',
     cityNameRu: 'Озеро Байкал',
     region: 'Siberia',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
     description: 'The deepest and oldest freshwater lake in the world, holding 20% of the world unfrozen fresh surface water.',
     keyPhrases: [
       { ru: 'Байкал очень глубокий.', en: 'Baikal is very deep.' },
@@ -43,6 +46,7 @@ const CITIES_DATA: CityLandmark[] = [
     cityName: 'Vladivostok',
     cityNameRu: 'Владивосток',
     region: 'Far East',
+    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1000&q=80',
     description: 'The eastern terminus of the Trans-Siberian Railway and Russia major Pacific ocean port city.',
     keyPhrases: [
       { ru: 'Это конец Транссибирской магистрали.', en: 'This is the end of the Trans-Siberian Railway.' }
@@ -51,14 +55,14 @@ const CITIES_DATA: CityLandmark[] = [
 ];
 
 export const MapStudioView: React.FC = () => {
-  const [selectedCity, setSelectedCity] = useState<CityLandmark>(CITIES_DATA[0]);
+  const [selectedCity, setSelectedCity] = useState<(CityLandmark & { image: string })>(CITIES_DATA[0]);
 
   const handleSpeech = (text: string) => {
     playRussianSpeech(text);
   };
 
   return (
-    <div className="space-y-10 py-8">
+    <div className="space-y-10 py-8 animate-fade-in-up">
       
       {/* HEADER */}
       <div className="border-b border-[var(--text-primary)] pb-8 space-y-4">
@@ -93,17 +97,30 @@ export const MapStudioView: React.FC = () => {
         </div>
       </div>
 
-      {/* CITY DETAIL STUDIO */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* CITY DETAIL STUDIO WITH PHOTO & 3D TILT */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <div className="lg:col-span-7 editorial-card p-8 bg-[var(--bg-surface)] space-y-6">
-          <div className="flex items-center justify-between border-b border-[var(--border-light)] pb-4">
-            <div>
-              <span className="pill-badge">{selectedCity.region}</span>
-              <h2 className="font-display text-3xl font-extrabold text-[var(--text-primary)] mt-1">
+        <div className="lg:col-span-7 editorial-card p-8 bg-[var(--bg-surface)] space-y-6 card-3d-hover">
+          
+          {/* City Image Header */}
+          <div className="img-editorial h-64 border border-[var(--border-light)]">
+            <img
+              src={selectedCity.image}
+              alt={selectedCity.cityName}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end text-white">
+              <span className="pill-badge bg-white/20 backdrop-blur-md text-white border-white/30 text-[10px] w-fit mb-1">
+                {selectedCity.region}
+              </span>
+              <h2 className="font-display text-3xl font-extrabold uppercase">
                 {selectedCity.cityName}
               </h2>
-              <p className="text-xs font-serif font-bold text-amber-600 italic">
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between border-b border-[var(--border-light)] pb-4">
+            <div>
+              <p className="text-xs font-serif font-bold text-amber-600 italic text-base">
                 «{selectedCity.cityNameRu}»
               </p>
             </div>
@@ -145,7 +162,7 @@ export const MapStudioView: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-5 editorial-card p-8 bg-[var(--bg-surface)] space-y-4 text-center">
+        <div className="lg:col-span-5 editorial-card p-8 bg-[var(--bg-surface)] space-y-4 text-center card-3d-hover">
           <div className="w-16 h-16 rounded-full bg-[var(--bg-main)] border border-[var(--border-light)] flex items-center justify-center mx-auto text-amber-600">
             <Navigation size={32} />
           </div>
