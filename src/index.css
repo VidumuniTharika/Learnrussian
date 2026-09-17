@@ -217,6 +217,67 @@ body {
   }
 }
 
+/* Colorful Animated Navbar Dock & Shimmer Border */
+.nav-floating-dock {
+  background: var(--bg-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 9999px;
+  position: relative;
+  padding: 4px;
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--bg-surface), var(--bg-surface)), 
+                    linear-gradient(120deg, #f59e0b, #ef4444, #8b5cf6, #3b82f6, #10b981, #f59e0b);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 300%;
+  animation: navBorderShimmer 8s linear infinite;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2), 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+@keyframes navBorderShimmer {
+  0% { background-position: 0% 0%, 0% 50%; }
+  50% { background-position: 0% 0%, 100% 50%; }
+  100% { background-position: 0% 0%, 0% 50%; }
+}
+
+/* Colorful Shimmer Ray line inside Navbar */
+.nav-shine-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-25deg);
+  animation: navbarShinePass 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes navbarShinePass {
+  0% { left: -100%; }
+  40% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Nav Item Colorful Active State & Hover Glow */
+.nav-tab-active {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45), 0 0 10px rgba(239, 68, 68, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.nav-tab-item {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-tab-item:hover:not(.nav-tab-active) {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: var(--text-accent) !important;
+  transform: translateY(-1px) scale(1.04);
+}
+
 /* Hero Shimmer Glow Box with Glass Screen Effect */
 .hero-glow-box {
   position: relative;

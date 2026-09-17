@@ -17,7 +17,8 @@ import {
   CheckSquare,
   MapPin,
   Book,
-  Shield
+  Shield,
+  ChevronDown
 } from 'lucide-react';
 import { playSoundEffect } from '../utils/audioEngine';
 
@@ -48,27 +49,31 @@ export const Navbar: React.FC<NavbarProps> = ({
   setTheme
 }) => {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
 
   const handleViewChange = (view: ActiveView) => {
     playSoundEffect('click');
     setActiveView(view);
   };
 
-  const navItems: { view: ActiveView; label: string; icon: React.ReactNode }[] = [
+  const primaryNavItems: { view: ActiveView; label: string; icon: React.ReactNode }[] = [
     { view: 'home', label: 'Home', icon: <GraduationCap size={14} /> },
-    { view: 'alphabet', label: 'Alphabet', icon: <Sparkles size={14} /> },
     { view: 'courses', label: 'Curriculum', icon: <BookOpen size={14} /> },
     { view: 'cases', label: 'Cases', icon: <Compass size={14} /> },
     { view: 'dialogues', label: 'Dialogues', icon: <MessageSquare size={14} /> },
-    { view: 'dictation', label: 'Dictation', icon: <Headphones size={14} /> },
     { view: 'quests', label: 'Quests', icon: <CheckSquare size={14} /> },
-    { view: 'map', label: 'Map', icon: <MapPin size={14} /> },
-    { view: 'idioms', label: 'Idioms', icon: <Book size={14} /> },
-    { view: 'culture', label: 'Culture', icon: <Feather size={14} /> },
-    { view: 'srs', label: 'SRS Deck', icon: <Sparkles size={14} /> },
-    { view: 'placement', label: 'Placement', icon: <HelpCircle size={14} /> },
-    { view: 'dashboard', label: 'Profile', icon: <Trophy size={14} /> },
-    { view: 'admin', label: 'Admin', icon: <Shield size={14} /> },
+  ];
+
+  const moreNavItems: { view: ActiveView; label: string; icon: React.ReactNode }[] = [
+    { view: 'alphabet', label: 'Alphabet', icon: <Sparkles size={14} /> },
+    { view: 'dictation', label: 'Dictation', icon: <Headphones size={14} /> },
+    { view: 'map', label: 'Map Explorer', icon: <MapPin size={14} /> },
+    { view: 'idioms', label: 'Idioms Dictionary', icon: <Book size={14} /> },
+    { view: 'culture', label: 'Culture & Arts', icon: <Feather size={14} /> },
+    { view: 'srs', label: 'SRS Flashcards', icon: <Sparkles size={14} /> },
+    { view: 'placement', label: 'Placement Quiz', icon: <HelpCircle size={14} /> },
+    { view: 'dashboard', label: 'Student Profile', icon: <Trophy size={14} /> },
+    { view: 'admin', label: 'Admin Studio', icon: <Shield size={14} /> },
   ];
 
   return (
@@ -106,18 +111,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Navigation Items */}
-        <nav className="hidden xl:flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-full border border-[var(--border-light)] overflow-x-auto max-w-2xl">
-          {navItems.map((item) => {
+        {/* Shortened Navigation Floating Glass Dock */}
+        <nav className="hidden lg:flex items-center gap-1 nav-floating-dock overflow-hidden">
+          <div className="nav-shine-line" />
+          
+          {primaryNavItems.map((item) => {
             const isActive = activeView === item.view;
             return (
               <button
                 key={item.view}
                 onClick={() => handleViewChange(item.view)}
-                className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                  isActive
-                    ? 'bg-[var(--text-primary)] text-[var(--bg-main)] shadow-sm'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap nav-tab-item relative z-10 ${
+                  isActive ? 'nav-tab-active' : 'text-[var(--text-secondary)]'
                 }`}
               >
                 {item.icon}
@@ -125,6 +130,53 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+
+          {/* Explore All Dropdown Menu */}
+          <div className="relative z-20">
+            <button
+              onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap nav-tab-item ${
+                moreNavItems.some(i => i.view === activeView)
+                  ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-white shadow-md'
+                  : 'text-[var(--text-secondary)]'
+              }`}
+            >
+              <Sparkles size={13} className="text-amber-400 animate-pulse" />
+              <span>Explore All</span>
+              <ChevronDown size={13} className={`transition-transform duration-300 ${moreMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {moreMenuOpen && (
+              <div className="absolute right-0 mt-3 w-56 bg-[var(--bg-surface)] backdrop-blur-2xl rounded-2xl p-2.5 shadow-2xl z-50 border border-[var(--border-light)] animate-fade-in-up grid grid-cols-1 gap-1">
+                <div className="px-3 py-1 text-[10px] font-mono font-bold uppercase text-[var(--text-muted)] tracking-wider">
+                  Practice Labs & Tools
+                </div>
+                {moreNavItems.map((item) => {
+                  const isActive = activeView === item.view;
+                  return (
+                    <button
+                      key={item.view}
+                      onClick={() => {
+                        handleViewChange(item.view);
+                        setMoreMenuOpen(false);
+                      }}
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                        isActive 
+                          ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-white font-bold shadow-sm' 
+                          : 'text-[var(--text-secondary)] hover:bg-[var(--bg-surface-hover)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </div>
+                      {isActive && <span className="text-[10px] font-mono uppercase font-bold">Active</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Right Controls */}
@@ -185,19 +237,22 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Nav Bar */}
-      <div className="xl:hidden flex items-center justify-around py-2 bg-[var(--bg-surface)] border-t border-[var(--border-light)] px-1 overflow-x-auto">
-        {navItems.map((item) => (
-          <button
-            key={item.view}
-            onClick={() => handleViewChange(item.view)}
-            className={`flex flex-col items-center gap-0.5 p-1 rounded-lg text-[10px] font-bold whitespace-nowrap ${
-              activeView === item.view ? 'text-[var(--text-primary)] underline font-extrabold' : 'text-[var(--text-muted)]'
-            }`}
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </button>
-        ))}
+      <div className="lg:hidden flex items-center gap-2 py-2 px-3 bg-[var(--bg-surface)] backdrop-blur-xl border-t border-[var(--border-light)] overflow-x-auto scrollbar-none">
+        {[...primaryNavItems, ...moreNavItems].map((item) => {
+          const isActive = activeView === item.view;
+          return (
+            <button
+              key={item.view}
+              onClick={() => handleViewChange(item.view)}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
+                isActive ? 'nav-tab-active' : 'text-[var(--text-muted)] bg-[var(--bg-card)]'
+              }`}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
       </div>
 
     </header>
