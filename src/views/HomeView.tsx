@@ -3,6 +3,7 @@ import { ActiveView } from '../types';
 import { CYRILLIC_ALPHABET, COURSES_DATA } from '../data/mockData';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
 import { RussiaPhotoGallery } from '../components/RussiaPhotoGallery';
+import winterPalaceImg from '../assets/photos/winter_palace_facade.jpg';
 import { 
   Sparkles, 
   BookOpen, 
@@ -25,7 +26,7 @@ const HERO_PHOTOS = {
   // Red Square & Kremlin SVG / Photo
   redSquare: 'https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg?auto=compress&cs=tinysrgb&w=1200',
   // St. Petersburg Winter Palace
-  winterPalace: 'https://images.pexels.com/photos/3889855/pexels-photo-3889855.jpeg?auto=compress&cs=tinysrgb&w=1000'
+  winterPalace: winterPalaceImg
 };
 
 export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {

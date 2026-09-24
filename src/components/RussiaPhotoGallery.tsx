@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Sparkles, MapPin, Volume2, Eye, X, Compass, ExternalLink, Shield } from 'lucide-react';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
+import saviorOnBloodImg from '../assets/photos/savior_on_blood.jpg';
+import winterPalaceImg from '../assets/photos/winter_palace_facade.jpg';
 
 export interface RussiaPhotoItem {
   id: string;
@@ -36,7 +38,7 @@ export const RUSSIA_PHOTOS: RussiaPhotoItem[] = [
     coordinates: '59.9398° N, 30.3146° E',
     description: 'The grand residence of Russian Emperors along the Neva River, housing over 3 million art masterpieces.',
     culturalNote: 'Founded by Empress Catherine the Great in 1764, it features 1,057 rooms and turquoise Baroque facades.',
-    imgUrl: 'https://images.pexels.com/photos/3889855/pexels-photo-3889855.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    imgUrl: winterPalaceImg,
     tag: 'Tsarist Architecture',
     speechPhrase: 'Зимний Дворец'
   },
@@ -60,7 +62,7 @@ export const RUSSIA_PHOTOS: RussiaPhotoItem[] = [
     coordinates: '59.9401° N, 30.3289° E',
     description: 'Iconic Russian Revival church adorned with over 7,500 square meters of intricate glass mosaics.',
     culturalNote: 'Built on the exact canal spot where Tsar Alexander II was assassinated in 1881.',
-    imgUrl: 'https://images.unsplash.com/photo-1513326718677-b964603b136d?auto=format&fit=crop&w=1200&q=80',
+    imgUrl: saviorOnBloodImg,
     tag: 'Mosaic Masterpiece',
     speechPhrase: 'Храм Спаса на Крови'
   },
@@ -169,22 +171,29 @@ export const RussiaPhotoGallery: React.FC = () => {
             </div>
 
             {/* Bottom Content Info */}
-            <div className="relative z-10 p-6 space-y-2 text-white">
+            <div className="relative z-10 p-6 space-y-2.5 text-white">
               <div className="flex items-center gap-2 text-[11px] font-mono text-amber-300">
                 <span className="glow-dot-pulse" />
                 <span>{photo.location}</span>
               </div>
 
-              <h3 className="font-display text-2xl font-bold uppercase tracking-tight group-hover:text-amber-300 transition-colors">
+              {/* Russian Name with Stunning Gold Letter Shine */}
+              <h3 className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight leading-snug text-shine-gold">
                 {photo.titleRu}
               </h3>
 
-              <p className="text-xs text-slate-300 font-serif italic line-clamp-1">
-                {photo.titleEn}
-              </p>
+              {/* English Name Prominently Featured with Silver Letter Shine */}
+              <div className="flex items-center gap-2 pt-0.5">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/25 text-amber-300 font-extrabold border border-amber-500/40 shrink-0">
+                  EN
+                </span>
+                <p className="font-sans text-sm sm:text-base font-extrabold text-shine-silver tracking-wide leading-tight">
+                  {photo.titleEn}
+                </p>
+              </div>
 
-              <div className="pt-2 flex items-center gap-2 text-[11px] font-mono text-amber-400 group-hover:translate-x-1 transition-transform">
-                <Eye size={13} />
+              <div className="pt-2 flex items-center gap-2 text-[11px] font-mono text-amber-400 group-hover:translate-x-1.5 transition-transform">
+                <Eye size={13} className="text-amber-400 animate-pulse" />
                 <span className="underline uppercase tracking-wider font-bold">Inspect Holographic View</span>
               </div>
             </div>
@@ -234,14 +243,19 @@ export const RussiaPhotoGallery: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-display text-3xl font-extrabold uppercase text-[var(--text-primary)]">
+                    <h3 className="font-display text-3xl font-extrabold uppercase text-shine-gold">
                       {selectedPhoto.titleRu}
                     </h3>
-                    <p className="font-serif italic text-lg text-amber-600 font-bold mt-1">
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-xs font-mono uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30">
+                        ENGLISH
+                      </span>
+                      <p className="text-lg font-sans font-extrabold text-shine-silver">
+                        {selectedPhoto.titleEn}
+                      </p>
+                    </div>
+                    <p className="font-serif italic text-base text-amber-500 font-bold mt-1">
                       «{selectedPhoto.speechPhrase}»
-                    </p>
-                    <p className="text-sm font-sans font-bold text-[var(--text-secondary)] mt-0.5">
-                      {selectedPhoto.titleEn}
                     </p>
                   </div>
 
