@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ActiveView } from '../types';
 import { CYRILLIC_ALPHABET, COURSES_DATA } from '../data/mockData';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
+import { RussiaPhotoGallery } from '../components/RussiaPhotoGallery';
 import { 
   Sparkles, 
   BookOpen, 
@@ -182,6 +183,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ setActiveView }) => {
           </div>
 
         </div>
+
+        {/* INTERACTIVE 3D CRYSTAL PHOTO GALLERY SHOWCASE */}
+        <RussiaPhotoGallery />
 
         {/* Action Bar & Stats */}
         <div className="flex flex-wrap items-center justify-between gap-6 pt-4">

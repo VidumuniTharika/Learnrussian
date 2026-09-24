@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CultureStory } from '../types';
 import { playRussianSpeech, playSoundEffect } from '../utils/audioEngine';
+import { RussiaPhotoGallery } from '../components/RussiaPhotoGallery';
 import { BookOpen, Volume2, Feather } from 'lucide-react';
 
 const CULTURAL_STORIES: (CultureStory & { image: string })[] = [
@@ -204,6 +205,9 @@ export const CultureView: React.FC = () => {
         </div>
 
       </div>
+
+      {/* IMPERIAL RUSSIA CRYSTAL PHOTO GALLERY */}
+      <RussiaPhotoGallery />
 
     </div>
   );
